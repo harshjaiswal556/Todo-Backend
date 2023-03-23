@@ -7,8 +7,8 @@ module.exports.getToDo = async (req, res) => {
 
 module.exports.saveTodo = async (req, res) => {
   try {
-    const { text, lastEdit } = req.body;
-    ToDoModel.create({ text, lastEdit }).then((data) => {
+    const { text, email, lastEdit } = req.body;
+    ToDoModel.create({ text, email, lastEdit }).then((data) => {
       console.log("Added successfully...");
       console.log(data);
       res.send(data);
@@ -18,28 +18,32 @@ module.exports.saveTodo = async (req, res) => {
   }
 };
 
-module.exports.updateTodo = async(req,res)=>{
-    try {
-        const {_id, text, lastEdit} = req.body;
-        ToDoModel.findByIdAndUpdate(_id, {text, lastEdit}).then(()=>{
-            res.status(200).send("Updated Successfully...");
-        }).catch((err)=>{
-            console.log(err);
-        })
-    } catch (error) {
-        console.log(error);
-    }
-}
+module.exports.updateTodo = async (req, res) => {
+  try {
+    const { _id, text, lastEdit } = req.body;
+    ToDoModel.findByIdAndUpdate(_id, { text, lastEdit })
+      .then(() => {
+        res.status(200).send("Updated Successfully...");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-module.exports.deleteTodo = async(req,res)=>{
-    try {
-        const {_id, text} = req.body;
-        ToDoModel.findByIdAndDelete(_id).then(()=>{
-            res.status(200).send("Deleted Successfully...");
-        }).catch((err)=>{
-            console.log(err);
-        })
-    } catch (error) {
-        console.log(error);
-    }
-}
+module.exports.deleteTodo = async (req, res) => {
+  try {
+    const { _id, text } = req.body;
+    ToDoModel.findByIdAndDelete(_id)
+      .then(() => {
+        res.status(200).send("Deleted Successfully...");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } catch (error) {
+    console.log(error);
+  }
+};
